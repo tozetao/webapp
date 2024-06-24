@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Demo</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    li {
+      line-height: 50px;
+    }
+    li a {
+      font-size: 30px;
+    }
+    input {
+      border: 1px solid #000;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="page">
+    <img src="./images/2022-04-01-015651.jpg" alt="" width="100%">
+    <input type="text">
+    <ul>
+      <li><a href="#">很长的连接</a></li>
+      <li><a href="#">很长的连接</a></li>
+      <li><a href="#">很长的连接</a></li>
+      <li><a href="#">很长的连接</a></li>
+      <li><a href="#">很长的连接</a></li>
+      <li><a href="#">很长的连接</a></li>
+      <li><a href="#">很长的连接</a></li>
+      <li><a href="#">很长的连接</a></li>
+      <li><a href="#">很长的连接</a></li>
+      <li><a href="#">很长的连接</a></li>
+    </ul>
+  </div>
+</body>
+</html>
+<script>
+  var page = document.querySelector('.page')
+  page.addEventListener('touchstart', function (ev) {
+    console.log('page touch start')
+    ev.preventDefault() 
+  })
+</script>

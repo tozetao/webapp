@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>滑动效果</title>
+  <style type="text/css">
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+
+    .wrap {
+      width: 100vw;
+      height: 100vh;
+      /* border: 1px solid #cdc; */
+
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .list {
+      transition: .4s;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <ul class="list">
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>一个li标签</li>
+      <li>aaaaaaaaaaaaaaaaaaa</li>
+    </ul>
+  </div>
+</body>
+</html>
+<!-- 利用腾讯的css3transform.js -->
+<script src="./transform.js"></script>
+<script>
+  const wrap = document.querySelector('.wrap')
+  const list = document.querySelector('.list')
+  
+  let startPointY = 0,  // 手指按下时的Y坐标
+  startTop = 0,         // 要滑动的元素的top值
+  verticalDistance = 0;       // 手指移动时的Y坐标
+
+  Transform(list)
+
+  list.addEventListener('touchstart', evt => {
+    // 手指按下时的坐标
+    startPointY = evt.changedTouches[0].clientY
+
+    // 元素垂直移动的距离
+    startTop = list.translateY
+  })
+
+  list.addEventListener('touchmove', evt => {
+    // 垂直移动的距离 = 当前移动的坐标Y - 手指按下的坐标Y
+    verticalDistance = evt.changedTouches[0].clientY - startPointY
+
+    list.translateY = startTop + verticalDistance
+  })
+
+</script>

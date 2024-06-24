@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Scroll</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <style type="text/css">
+    :root {
+      --vh: 1vh;
+    }
+    .body {
+      width: 100vw;
+      /* height: 100vh; */
+      height: calc(var(--vh) * 100);
+    }
+
+    .container {
+      height: 100%;
+    }
+
+    .scroll-wrapper {
+      position: relative;
+      left: 0;
+      top: 0;
+      z-index: 10;
+
+      /* height: 6rem; */
+      height: calc(var(--vh) * 100);
+      overflow: hidden;
+
+      border: 1px solid #cdc;
+    }
+
+    /* 为了better-scroll能够识别content的高度。不设置content的上下间距，内容区域下的子元素的margin、padding都失效。 */
+    .scroll-content {
+      padding: .01rem 0;
+    }
+
+    .list {
+      border: 1px solid salmon;
+      /* padding: 1rem 0 0 .2rem;
+      margin: 1rem 0; */
+      margin: 1rem 0 0 0qw ;
+    }
+
+    .list p {
+      display: block;
+
+      padding: .06rem 0;
+      height: 1rem;
+      line-height: 1rem;
+
+      font-size: .5rem;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .header {
+      /* 设置成position有bug，滚动内容不会被覆盖 */
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 100;
+
+      width: 100%;
+      height: 1rem;
+      font-size: 25px;
+      text-align: center;
+
+      background-color: antiquewhite;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- 
+    Scroll所接收的容器的区域是滚动的区域。
+    要实现容器的滚动，就要求内容区域的高度（子容器）要大于滚动区域的高度（区域）。
+
+    注意：为了内容区域的子元素的margin、padding的上下间距、填充生效，需要为内容设置1px的pading，padding: 1px 0;
+   -->
+   <div class="scroll-wrapper">
+    <div class="scroll-content">
+      <div class="list">
+        <p>A</p>
+        <p>B</p>
+        <p>C</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>this is a demo.</p>
+        <p>D</p>
+        <p>E</p>
+        <p>F</p>
+        <p>G</p>
+      </div>
+    </div>
+
+    <div class="header">Header</div>
+  </div>
+</body>
+</html>
+
+<script src="./js/index.js"></script>
+<script src="https://unpkg.com/better-scroll@latest/dist/better-scroll.min.js"></script>
+
+<!-- <script src="https://unpkg.com/@better-scroll/core@latest/dist/core.js"></script> -->
+
+<script>
+  console.log(document.documentElement.clientWidth)
+  console.log(document.documentElement.clientHeight)
+
+  // alert(document.documentElement.clientWidth);
+  // alert(document.documentElement.clientHeight);
+  // alert(window.innerHeight);
+
+  function setViewHeight() {
+    console.log('setViewHeight')
+    var windowVH = window.innerHeight / 100
+    document.documentElement.style.setProperty('--vh', windowVH + 'px')
+  }
+  const resizeEvent = 'orientationchange' in window ? 'orientationchange' : 'resize'
+  document.addEventListener('DOMContentLoaded', setViewHeight)
+  window.addEventListener(resizeEvent, setViewHeight)
+
+  document.addEventListener('DOMContentLoaded', function(event) {
+    // const container = document.querySelector('.scroll-wrapper')
+    // const bs = new BScroll(container, {})  
+    console.log('scroll init')
+    const bs = BetterScroll.createBScroll('.scroll-wrapper', {
+      scrollY: true,
+      scrollbar: true
+    })
+    console.log(bs)
+  });
+</script>
+

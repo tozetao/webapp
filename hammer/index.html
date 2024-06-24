@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Hammer</title>
+  <style>
+    body{
+      margin: 0;
+    }
+
+    .ok {
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <img class="ok" src="/webapp/assets/images/ok.png" />
+
+  <div class="result"></div>
+</body>
+</html>
+<script src="/webapp/assets/package/hammer.min.js"></script>
+<script>
+let transform = null;
+let ticking = false;
+
+let startX = 0, startY = 0;
+
+const image = document.querySelector('.ok');
+const result = document.querySelector('.result')
+
+
+const mc = new Hammer.Manager(image)
+mc.add(new Hammer.Pan())
+// 添加一个旋转手势，并且和平移收拾同时识别
+mc.add(new Hammer.Rotate()).recognizeWith(mc.get('pan'))
+// 添加一个缩放手势，且能够同时与pan、rotate识别
+mc.add(new Hammer.Pinch()).recognizeWith([mc.get('pan'), mc.get('rotate')])
+
+mc.on(['panstart', 'panend', 'panmove'].join(' '), function(event) {
+  // console.log('deltaX: %o, deltaY: %o, x: %o, y: %o', event.deltaX, event.deltaY, startX, startY)
+  if (event.type === 'panstart') {
+    startX = transform.translate.x || 0
+    startY = transform.translate.y || 0
+  } else {
+    if (!event.isFinal) {
+      transform.translate.x = startX + event.deltaX;
+      transform.translate.y = startY + event.deltaY;
+      requestElementTransform()
+    }
+  }
+});
+
+let initScale = 1
+mc.on('pinchstart pinchmove', function(event){
+  if (event.type === 'pinchmove') {
+    transform.scale = initScale * event.scale
+    requestElementTransform()
+  } else {
+    initScale = transform.scale
+  }
+});
+
+// 元素当前的角度
+let initRotation = 0, startRotation = 0, deltaRotation = 0;
+
+mc.on('rotatestart rotatemove rotateend', function(event) {
+  if (event.type === 'rotatestart') {
+    startRotation = event.rotation
+  } else if (event.type === 'rotatemove') {
+    deltaRotation = event.rotation - startRotation
+
+    transform.rotate = initRotation + deltaRotation
+
+    requestElementTransform()
+  } else if (event.type === 'rotateend') {
+    initRotation = transform.rotate
+  }
+
+  result.innerHTML = 'rotation: ' + event.rotation + '<br />'  +  'initRotation: ' + initRotation
+     + '<br />'  + 'startRotation: ' + startRotation + '<br/>' + 'deltaRotation:' + deltaRotation
+});
+
+(function(){
+  transform = {
+    translate: {
+      x: 0,
+      y: 0
+    },
+    scale: 1,
+    rotate: 0
+  }
+})();
+
+function updateElementTransform() {
+  const value = `
+    translate(${transform.translate.x}px, ${transform.translate.y}px)
+    scale(${transform.scale})
+    rotate(${transform.rotate}deg)
+  `;
+  image.style.transform = value
+  ticking = false
+}
+
+function requestElementTransform() {
+  if (!ticking) {
+    ticking = true
+    window.requestAnimationFrame(updateElementTransform)
+  }
+}
+</script>

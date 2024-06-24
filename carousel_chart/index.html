@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>移动端 - 无缝轮播图</title>
+  <style>
+    body{
+      margin: 0;
+    }
+    .banner {
+      position: relative;
+      width: 100vw;
+      overflow: hidden;
+    }
+    .wrap {
+      width: 300vw;
+      display: flex;
+    }
+    .wrap a {
+      width: 100vw;
+      flex: 0 0 100vw;
+    }
+    .wrap a img {
+      width: 100%;
+      vertical-align: middle;
+    }
+
+    .circle {
+      position: absolute;
+      bottom: 3vw;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+    }
+    .circle span {
+      width: 3vw;
+      height: 3vw;
+      background-color: #ddd;
+      margin: 0 1.5vw;
+    }
+
+    .circle span.active {
+      background-color: gray;
+      opacity: .8;
+    }
+
+  </style>
+</head>
+<body>
+  <section class="banner">
+    <div class="wrap">
+      <a href="#">
+        <img src="/webapp/assets/images/banner_01.jpg" alt="">
+      </a>
+      <a href="#">
+        <img src="/webapp/assets/images/banner_02.jpg" alt="">
+      </a>
+      <a href="#">
+        <img src="/webapp/assets/images/banner_03.jpg" alt="">
+      </a>
+    </div>
+    <div class="circle">
+      <span class="active"></span>
+      <span></span>
+      <span></span>
+    </div>
+  </section>
+</body>
+</html>
+<script src="/webapp/assets/package/transform.js"></script>
+<script>
+  const banner = document.querySelector('.banner')
+  const wrap = document.querySelector('.wrap')
+  const spans = document.querySelectorAll('.circle span')
+  
+  Transform(wrap)
+
+  let startPointX = 0, movingDisx = 0, imageWidth = banner.offsetWidth, lastIndex = 0, index = 0, startEleX = 0;
+  
+
+  // 将图片列表复制一次，用于实现轮播图
+  wrap.innerHTML += wrap.innerHTML
+
+  const nums = wrap.children.length
+
+  console.log('nums: ', nums)
+
+  wrap.addEventListener('touchstart', ev => {
+    startPointX = ev.changedTouches[0].pageX
+
+
+
+    if (index === 0) {
+      // 4/2=2 6/2=3
+      index = Math.floor(nums / 2)
+    } else if (index === nums - 1) {
+      index = Math.floor(nums / 2) - 1
+    }
+
+    
+    // 去除wrap的过度，否则一会儿拖动的时候会因为过度效果慢半拍
+    console.log('index: %o', index)
+    wrap.style.transition = '';
+    wrap.translateX = -index * imageWidth
+    startEleX = wrap.translateX
+  })
+
+  wrap.addEventListener('touchmove', ev => {
+    // 手指移动的距离
+    movingDisx = ev.changedTouches[0].pageX - startPointX
+    wrap.translateX = movingDisx + startEleX
+  })
+
+  wrap.addEventListener('touchend', ev => {
+    console.log('touchend, %o, %o', movingDisx, imageWidth / 5);
+
+    // 判断是否需要切换到下一张
+    if (Math.abs(movingDisx) > (imageWidth / 6)) {
+      if (movingDisx > 0) {
+        // 显示上一张图片
+        index--;
+      } else {
+        // 显示下一张图片
+        index++;
+      }
+    }
+    wrap.style.transition = '.3s'
+    wrap.translateX = -index * imageWidth
+
+    // 根据图片的索引
+    // 0 1 2 3 4 5 => 0 1 2 0 1 2
+    console.log(spans)
+    spans[lastIndex].className = ''
+    spans[index % (nums / 2)].className = 'active'
+    lastIndex = index % (nums / 2)
+  })
+
+</script>

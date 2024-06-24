@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style lang="text/css">
+    html {
+      -webkit-overflow-scrolling: auto;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      height: 30vh;
+      background-color: rgb(228, 255, 246);
+
+      overflow: auto;
+      position: relative;
+      touch-action: pan-y;
+    }
+
+    .container p {      
+      padding: 4px;
+      margin: 0;
+
+      font-size: 32px;
+      border: 1px solid #cdc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="content">
+      <p>It is a demo</p>
+      <p>It is a demo</p>
+      <p>It is a demo</p>
+      <p>It is a demo</p>
+      <p>It is a demo</p>
+      <p>It is a demo</p>
+      <p>It is a demo</p>
+      <p>It is a demo</p>
+      <p>It is a demo</p>
+      <p>Last one</p>
+    </div>
+  </div>
+  <div id="result"></div>
+</body>
+</html>
+<script>
+  const attrs = window.getComputedStyle(document.documentElement)
+  console.log(attrs)
+
+  const distance = 10;
+  
+  (function(document, window) {
+    const container = document.querySelector('div.container');
+
+    const scrollHeight = container.scrollHeight
+    const height = container.clientHeight
+
+    const result = document.getElementById('result');
+
+    container.onscroll = function(event) {
+      console.log(event.target)
+      if (event.target.scrollTop + height >= scrollHeight) {
+        result.textContent = '到达底部了'
+      } else {
+        result.textContent = event.target.scrollTop
+      }
+    }
+  })(document, window);
+
+
+</script>

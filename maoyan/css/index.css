@@ -1,0 +1,228 @@
+.header {
+  width: 100%;
+  height: 4.25rem;
+
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+}
+
+header {
+  height: 1.38rem;
+  line-height: 1.38rem;
+  
+
+  background-color: #e64a48;
+
+  font-size: .5rem;
+  font-weight: 300;
+  color: #fff;
+  text-align: center;
+
+  position: relative;
+}
+
+header button {
+  background: url('../img/hamburger.png') center/cover no-repeat;
+  background-size: .5rem .46rem;
+
+  display: block;
+
+  width: .5rem;
+  height: .46rem;
+
+  position: absolute;
+  right: .3rem;
+  top: calc(50% - 0.23rem);
+}
+
+.logo-bar {
+  height: 1.6rem;
+
+  font-size: .5rem;
+  background-color: #fff;
+  border-bottom: .01rem solid #e5e5e5;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: block;
+
+  width: 2.5rem;
+  height: 1.05rem;
+  margin-left: .3rem;
+
+  flex: 0 0 auto;
+}
+
+.logo-right {
+  height: .5rem;
+  width: 5.46rem;
+
+  margin-right: .35rem;
+  flex: 0 0 auto;
+}
+
+.logo-text-1 {
+  font-size: .38rem;
+  font-weight: 620;
+  font-family: PingFangSC-Regular, Arial, Helvetica, sans-seri;
+  color: #666;
+}
+
+.logo-split {
+  width: .01rem;
+  height: .34rem;
+  background-color: #e6e6e6;
+  display: inline-block;
+}
+
+.logo-text-2 {
+  font-size: .42rem;
+  font-weight: 700;
+  color: #be7e88;
+
+  width: 1.94rem;
+  height: .5rem;
+  line-height: .5rem;
+
+  position: relative;
+}
+
+.logo-text-2 img {
+  width: .26rem;
+  height: .26rem;
+
+  position: absolute;
+  right: -.1rem;
+  top: calc(50% - .13rem);
+}
+
+.top-nav-bar {
+  height: 1.23rem;
+  background-color: #fff;
+  border-bottom: .01rem solid #e5e5e5;
+}
+
+.top-nav-bar .city {
+  height: 1.23rem;
+  width: 1.9rem;
+  
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  
+
+  display: flex;
+  align-items: center;
+  padding-left: .32rem;
+}
+.top-nav-bar .city a {
+  font-size: .4rem;
+  font-weight: 300;
+}
+
+.city-entity-arrow {
+  width: 0;
+  height: 0;
+  border: 0.1rem solid transparent;
+  border-top-color: #b0b0b0;
+  margin: 0.1rem 0.1rem 0 0.1rem;
+}
+
+.top-nav {
+  width: 6.2rem;
+  height: 1.23rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+.top-nav a {
+  font-size: .4rem;
+  color: #686868;
+  display: block;
+}
+.top-nav a.active {
+  font-size: .5rem;
+  font-weight: 700;
+  color: #000;
+  position: relative;
+}
+.top-nav a.active::after {
+  position: absolute;
+  content: '';
+
+  width: .6rem;
+  height: .08rem;
+  background-color: #e64a48;
+  border-radius: .3rem;
+  left: calc(50% - .3rem);
+  top: .75rem;
+}
+
+.top-nav-bar .search {
+  display: block;
+  width: .5rem;
+  height: .5rem;
+  flex: 0 0 .5rem;
+
+  background: url('../img/search-red.png') center/cover no-repeat;
+  margin: 0 .42rem;
+}
+
+.main {
+  margin-top: 4.25rem;;
+  font-size: .5rem;
+}
+
+
+.footer {
+  width: 100%;
+  height: 1.3rem;
+
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: #fff;
+}
+
+.footer li {
+  flex: 1;
+  height: 100%;
+}
+
+.footer > li > a {
+  display: block;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: #666666;
+}
+
+.footer > li > a > img, .footer > li > a > svg {
+  display: block;
+
+  width: .6rem;
+  height: .6rem;
+
+  margin-top: .15rem;
+}
+
+.footer > li > a > span {
+  font-size: .26rem;
+  font-weight: 400;
+  margin-top: .18rem;
+}
+
+.footer a.active {
+  color: #e64a48;
+  font-weight: 400;
+}
+/* 16.15- */
